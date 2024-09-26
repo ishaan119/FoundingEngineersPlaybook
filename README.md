@@ -14,7 +14,7 @@
 
 The idea behind this book is personal and something I felt would have helped me when I first become the first engineer of a startup. In my experience even lot of startups with good traction and seed funding would benefit a lot from this. 
 
-This is not a comprehensive list of to do things, but just enough to get you started. The whole idea of this book is understand how to ship things faster and with good quality. 
+This is not a comprehensive list of to do things, but just enough to get you started. The main idea is to allow you and your team to be able to push code with confidence and ship faster. 
 
 ## 📝 Code Review
 
@@ -183,7 +183,7 @@ This flow is great for staggered production releases, accountability, and tracea
 
 | Release Management Workflow | Pros                                                                 | Cons                                                                                                  |
 |-----------------------------|---------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| **Trunk-Based Development**  | - Simple workflow<br>- Codebase is always production-ready<br>- Fewer merge conflicts<br>- Matches the latest commit | - Requires a robust CI/CD setup<br>- Relies on senior engineers<br>- Feature flag clutter<br>- Limited traceability |
+| **Trunk-Based Development**  | - Simple workflow<br>- Codebase is always production-ready<br>- Fewer merge conflicts<br> - Matches the latest commit | - Requires a robust CI/CD setup<br>- Relies on senior engineers<br>- Feature flag clutter<br> - Limited traceability |
 | **Git Flow**                 | - Well-suited for staged releases<br>- Great for legacy systems<br>- Provides traceability and accountability | - Complex and requires DevOps management<br>- Common merge conflicts<br>- Longer path to production<br>- Steeper learning curve |
 | **Feature Branching**        | - Allows concurrent feature development<br>- Isolates feature work<br>- Reduces risk in main branch<br>- Better control over feature releases | - Merge conflicts can still happen<br>- Inherits complexity from both Git Flow and Trunk-Based Development<br>- Can slow down production readiness |
 
@@ -212,25 +212,17 @@ There are many tools available to support CI/CD, and I highly recommend setting 
 
 If you’re using GitHub, I recommend **GitHub Actions**. It’s a powerful tool with excellent community support via the marketplace.
 
-> Opinion: I guarantee that if you are deploying your code manually you will end up spending more time than the time it takes to setup CD.
+> [!IMPORTANT]
+> As an early-stage company, **do not start with microservices**, even if you anticipate needing them in the future. Most frameworks are designed to allow you to separate components later, if necessary. Start with a **monolith** on managed services like Heroku, Elastic Beanstalk, or Vercel. Also, use managed databases. While they might be more expensive, it’s worth the peace of mind not having to worry about losing data. 
 
-#### A Note on Microservices
 
-As an early-stage founder, **do not start with microservices**, even if you anticipate needing them in the future. Most frameworks are designed to allow you to separate components later, if necessary. 
+All major cloud providers offer managed services like **Elastic Beanstalk** or **Heroku**. These services handle a lot of the DevOps overhead for you, so you can focus on building your product. Since they are containerized, you can migrate to **Kubernetes** or your own clusters later if needed.
 
-In my experience, as you scale, you’ll likely need to **rebuild your product** anyway. The decisions you make at 1,000 users will not hold at 50,000 or 500,000 users. Over-optimizing for scale too early will only slow down your feature development.
-
-> Opinion: All major cloud providers offer managed services like **Elastic Beanstalk** or **Heroku**. These services handle a lot of the DevOps overhead for you, so you can focus on building your product. Since they are containerized, you can migrate to **Kubernetes** or your own clusters later if needed.
-
-#### Starting Simple
-
-Start with a **monolith** on managed services like Heroku, Elastic Beanstalk, or Vercel. Also, use managed databases. While they might be more expensive, it’s worth the peace of mind not having to worry about losing data. 
-
-> Pro Tip: Use an auth provider like **Auth0**, **Clerk**, or **Firebase** so you don’t have to manage authentication yourself.
-
-#### Early Stage Focus
 
 In the early stages, your goal should be to move fast, deploy features, and find product-market fit. Keep in mind that these decisions will incur **technical debt**, and you’ll likely need to refactor later. But that’s a good problem to have!
+
+> Opinion: I guarantee that if you are deploying your code manually you will end up spending more time than the time it takes to setup CD. In my experience, as you scale, you’ll likely need to **rebuild your product** anyway. The decisions you make at 1,000 users will not hold at 50,000 or 500,000 users. Over-optimizing for scale too early will only slow down your feature development.
+
 
 
 ## 📊 Monitoring and Error Tracking
@@ -238,7 +230,7 @@ In the early stages, your goal should be to move fast, deploy features, and find
 _Because relying on your resident superhero to fix everything might make for great stories, but it’s a terrible strategy for your team’s sanity!_
 
 > [!NOTE]
-> Error tracking and performance monitoring are often overlooked in startups, leading to one overburdened "maverick" constantly firefighting. Avoid this by using tools like Sentry and Loggly to make logs and error reports accessible to the entire team without needing production access. Focus on being proactive with monitoring to boost productivity and avoid burnout. Let your team fix issues before they become emergencies.
+> Avoid the culture where there is one overburdened "maverick" engineer constantly firefighting.Use tools like Sentry and Loggly to make logs and error reports accessible to the entire team without needing production access. Let your team fix issues before they become emergencies.
 
 Error tracking and performance monitoring are often afterthoughts in early-stage companies. Since engineers frequently interact with customers directly, they tend to fix issues as they arise or when users report them.
 
@@ -256,9 +248,7 @@ Additionally, use tools like **Sentry**, which can alert the team when an except
 
 > Opinion: In my teams I have seen the biggest ROI with implementing tools like sentry where crashes are reported (emailed  to the whole team) and a bug is added automatically to your bug tracker. 
 
-I cannot emphasize enough how much time and effort this saves. By implementing proactive monitoring, you improve the developer experience and prevent the team from being caught off guard by issues.
-
-Also use tools like new relic to keep track of your performance and speed. You don't need to make everything super optimized, but its always a to know what tech improvements can be done when the team has some downtime. 
+Also use tools like **new relic** to keep track of your performance and speed. You don't need to make everything super optimized, but its always a to know what tech improvements can be done when the team has some downtime. 
 
 The goal is to be **proactive** rather than **reactive**.
 
@@ -269,37 +259,33 @@ _Security might feel like an afterthought until one wrong click makes it your on
 >[!NOTE]
 >Don’t neglect security in early-stage startups. Encrypt sensitive data, use SSL, and manage permissions with group-based controls. Update software regularly, secure cloud storage with encryption, and use password managers with SSO for secure access. Leverage tools like WAFs to block malicious traffic and enforce least privilege principles. Starting early prevents major issues later.
 
-
 Security often takes a back seat in early-stage startups, but it’s one area you can’t afford to ignore. A single breach could sink your company. Fortunately, basic security practices can significantly reduce your risk with minimal effort.
 
-Essential Security Measures
-1. Encrypt Sensitive Data
-Never store passwords or sensitive data in plaintext. Always hash and encrypt such data before storing it to prevent unauthorized access, especially when many team members have database access.
+### Essential Security Measures
 
-2. Always Use SSL
-Ensure SSL is enabled on all web traffic to protect data in transit. Even though it’s standard practice, it’s still occasionally overlooked.
+1. **User Authentication**
+  Use auth providers like **Auth0**, **Clerk**, or **Firebase** to offload authentication management.
 
-3. Group-Based Access Control
-Implement group-based privileges instead of individual permissions. This simplifies user management, making it easier to add or remove team members without having to adjust individual permissions manually.
+3.  **Group-Based Access Control**  
+   Use group-based privileges for access and follow principle of least privilege.
 
-4. Regular Software Updates
-Schedule regular software updates, ideally every 6 months. Keeping your software up to date ensures you patch vulnerabilities early and avoid the dreaded pile-up of tech debt.
+4. **Password Managers & SSO**  
+   Use password managers like 1Password or LastPass and implement SSO for secure, centralized authentication.
 
-5. Secure Cloud Storage (S3, etc.)
-For services like S3, always:
+5. **Secure Cloud Storage (S3, etc.)**  
+   Encrypt files, disable public access by default, use signed URLs, and audit permissions regularly.
 
-Encrypt files using built-in options like AWS’s Server-Side Encryption (SSE).
-Disable public access to storage by default and control access via bucket policies.
-Use signed URLs for temporary access and audit permissions regularly to ensure they’re limited to authorized users.
-6. Use Password Managers & Single Sign-On (SSO)
-Require the use of password managers like 1Password or LastPass to ensure secure, unique passwords for each service. Implement SSO wherever possible to centralize user authentication, making access management simpler and more secure.
+6.  **Regular Software Updates**  
+   Schedule updates every 6 months to patch vulnerabilities and prevent tech debt.
 
-7. Web Application Firewall (WAF)
-For added protection, use a Web Application Firewall (WAF) to block malicious traffic and common web exploits without much additional setup or maintenance.
+7. **Web Application Firewall (WAF)**  
+   Implement WAF to block malicious traffic and exploits.
 
-8. Principle of Least Privilege
-Follow the principle of least privilege by giving users only the access they need. Group-based permissions make this easier to enforce.
+8. **Encrypt Sensitive Data**  
+   Never store passwords in plaintext. Always hash and encrypt data to prevent unauthorized access.
 
-9. Secure File Uploads
-Ensure uploaded files are stored securely. Misconfigurations often leave sensitive files exposed. Regularly audit file security and permissions to avoid accidental leaks.
+9. **Always Use SSL**  
+   Ensure SSL is enabled to protect data in transit.
+   
+
 
