@@ -78,24 +78,32 @@ _Automation doesn’t just catch mistakes—it eliminates the awkwardness of a h
 
 Git hooks are so awesome that they deserve a dedicated chapter! Adding Git hooks early on in your project is probably the best ROI you'll get. There are numerous pre-written Git hooks that you can quickly integrate into your workflow.
 
-#### Popular Git Hooks:
-- **Linting**: Enforce coding standards across your team.
-- **File checks**: Ensure no unnecessary files are being committed.
-- **Commit message formatting**: Enforce consistency in commit messages.
-- **Static analysis**: Catch bugs and errors before they enter your codebase.
+_Some Popular Git Hooks_
+
+| Git Hook                  | Purpose                                                          |
+|---------------------------|------------------------------------------------------------------|
+| **Linting**                | Enforce coding standards across your team.                       |
+| **File Checks**            | Ensure no unnecessary files are being committed.                 |
+| **Commit Message Formatting** | Enforce consistency in commit messages.                       |
+| **Static Analysis**        | Catch bugs and errors before they enter your codebase.           |
+
 
 The beauty of Git hooks is their flexibility. As long as the hook script is executable, Git doesn’t care which language it’s written in—whether it’s Bash, Python, or anything else.
 
 Even if you’re working with an existing project, you can start using Git hooks immediately without affecting any of the current code. It's a seamless addition to your workflow, and I highly recommend starting as early as possible.
 
-#### A Word of Caution
-Git hooks are primarily designed to enhance developer productivity and encourage defensive programming practices. However, keep in mind that developers can disable these hooks if they choose to (hopefully they won’t!). Additionally, running these hooks on GitHub requires a paid service.
+>[!WARNING]
+>Git hooks are primarily designed to enhance developer productivity and encourage defensive programming practices. However, keep in mind that developers can disable these hooks if they choose to (hopefully they won’t!). Additionally, running these hooks on GitHub requires a paid service.
 
-#### Examples of Git Hooks:
-- **pre-commit**: Check the commit message for spelling errors.
-- **pre-receive**: Enforce coding standards before a commit is accepted.
-- **post-commit**: Automatically send an email or SMS to team members notifying them of a new commit.
-- **post-receive**: Push the code to production after a commit is received.
+_Different types of Git Hooks_
+
+| Git Hook      | Purpose                                                                                   |
+|---------------|--------------------------------------------------------------------------------------------|
+| **pre-commit**  | Check the commit message for spelling errors.                                             |
+| **pre-receive** | Enforce coding standards before a commit is accepted.                                     |
+| **post-commit** | Automatically send an email or SMS to team members notifying them of a new commit.        |
+| **post-receive**| Push the code to production after a commit is received.                                   |
+
 
 The possibilities for Git hooks are only limited by the developer’s imagination. They can be customized to fit any part of your workflow, enhancing automation and consistency throughout the development process.
 
@@ -128,17 +136,17 @@ We'll assume you're using Git—if not, you'd better have a solid reason.
 
 **Trunk-Based Development** is one of the most popular workflows for fast-moving teams.
 
-> Opinion: If you're starting fresh without legacy baggage, I highly recommend using this flow.
-
 #### Key Features:
 - Single branch (`main`/`master`)
 - Commit directly to `main`, using very short-lived branches (less than 24 hours)
 - `main` is always production-ready and deployed after every commit
 
+<img width="718" alt="Screen Shot 2024-09-27 at 2 20 50 AM" src="https://github.com/user-attachments/assets/b9eb8825-578e-44e7-95b6-566adc4f2981">
+
+
 For this to work, you need a solid CI/CD pipeline with comprehensive unit and integration testing. **Feature flags** are also essential for scalability.
 This is a developer's dream for a fast-moving team, but there are some trade-offs.
 This workflow is ideal for smaller teams (<10 engineers) with a strong CI/CD system. If you have compliance needs or a QA team that doesn't release frequently, this might not be the best fit.
-
 
 ### Git Flow
 
@@ -149,9 +157,6 @@ Git Flow** is one of the most well-known workflows in the industry.
 - Multiple long-living branches, typically `main` (or `master`) and `develop`
 - Additional branches for features, releases, and hotfixes
 
-> Opinion: In practice, using three long-living branches (`main`, `qa`, `develop`) makes development smoother.If you’re dealing with legacy software, Git Flow is often the best option.
-
-
 This workflow excels in environments with specific testing, compliance needs, and larger teams. It provides clear traceability for features, testing status, and live releases.
 
 #### Example Workflow:
@@ -160,8 +165,10 @@ This workflow excels in environments with specific testing, compliance needs, an
 - Once `qa` is stable, it’s merged into `main` for release.
 - Hotfixes are directly merged into `main`, but also need to be applied to `develop` and `qa` for consistency.
 
-If you don’t need a QA branch, you can create a short-lived release branch from `develop` when necessary.
+<img width="1053" alt="Screen Shot 2024-09-27 at 2 24 41 AM" src="https://github.com/user-attachments/assets/bea6321f-30d2-4ab7-bd27-8945582730f8">
 
+
+If you don’t need a QA branch, you can create a short-lived release branch from `develop` when necessary.
 This flow is great for staggered production releases, accountability, and traceability. Just be sure to protect branches and clean up old ones.
 
 ### Feature Branching
@@ -172,8 +179,7 @@ This flow is great for staggered production releases, accountability, and tracea
 - Short-lived feature branches for concurrent development
 - `main` is always production-ready, thanks to a strong CI/CD pipeline
 
-
-> Opinion: I’m not a fan of this hybrid approach—it takes on the negatives of both Trunk-Based and Git Flow without enough benefits.
+<img width="767" alt="Screen Shot 2024-09-27 at 2 25 10 AM" src="https://github.com/user-attachments/assets/c60a4e34-8d4b-4637-a6de-6cfe9b2e0797">
 
 | Release Management Workflow | Pros                                                                 | Cons                                                                                                  |
 |-----------------------------|---------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
@@ -185,8 +191,7 @@ This flow is great for staggered production releases, accountability, and tracea
 
 _The most important thing is to pick a workflow that fits your team and implement it properly. The worst-case scenario is having no workflow, leading to ad-hoc releases with no visibility or accountability._
 
-Once you've chosen a flow, make sure there are clear checks and balances to prevent bypassing the process.
-
+> Opinion: If you're starting fresh without legacy baggage, I highly recommend using the trunk based workflow. However in practice, using three long-living branches (`main`, `qa`, `develop`) is what lot of teams are comfortable with and makes development smoother specifically if you’re dealing with legacy software or don't have a robust test automation. I am not a big fan of feature branching where the hybrid approach takes on the negatives of both Trunk-Based and Git Flow without enough benefits.
 
 ## 🛠️ CI (Continuous Integration)/CD (Continuous Deployment) 
 
