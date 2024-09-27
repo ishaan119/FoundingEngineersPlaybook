@@ -1,6 +1,5 @@
 <img width="1069" alt="Screen Shot 2024-09-27 at 12 59 09 PM" src="https://github.com/user-attachments/assets/c2bdf5e3-b406-48ff-b22f-ef6b52d69e9b">
 
-# Founding Engineer's Playbook
 
 This playbook is designed for founding engineers and early technical hires at startups. It provides essential guidance on establishing robust engineering practices, from code reviews to security measures. 
 
